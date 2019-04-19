@@ -28,7 +28,12 @@ def student():
 #blind-ears
 @app.route('/result',methods = ['POST'])
 def hello_world():
-    file = request.files['image']
+    x='media'
+    print(request.files)
+    return request.files
+    file = request.files['files[x]']
+    # file=files.media
+    # file=cv2.imread('./uploads')
     # image_test=Image.open(file)
     # image_test=np.asarray(image_test)
     # image_test=cv2.resize(image_test,(28,28))
@@ -51,7 +56,7 @@ def hello_world():
     
     result=np.argmax(result,axis=1)
     result=str(int(result))
-    return render_template("result.html",result=result)
+    return result
 
 if __name__ == '__main__':
 #    print("predicting") 
