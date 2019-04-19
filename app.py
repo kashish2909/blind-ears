@@ -25,6 +25,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def student():
    return render_template('index.html')
 
+#blind-ears
 @app.route('/result',methods = ['POST'])
 def hello_world():
     file = request.files['image']
