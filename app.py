@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request, jsonify, redirect, url_for
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
+import requests
 import numpy as np
 #import scipy
 import cv2
@@ -28,10 +29,8 @@ def student():
 #blind-ears
 @app.route('/result',methods = ['POST'])
 def hello_world():
-    x='media'
-    print(request.files)
-    return request.files
-    file = request.files['files[x]']
+    print(request.files['file'])
+    file = request.files['file']
     # file=files.media
     # file=cv2.imread('./uploads')
     # image_test=Image.open(file)
@@ -56,6 +55,8 @@ def hello_world():
     
     result=np.argmax(result,axis=1)
     result=str(int(result))
+    print(result)
+    
     return result
 
 if __name__ == '__main__':
