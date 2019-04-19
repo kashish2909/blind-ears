@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import request, jsonify, redirect, url_for
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,Response
 from werkzeug.utils import secure_filename
 import requests
 import numpy as np
@@ -12,6 +12,7 @@ from keras.models import load_model
 import PIL
 from PIL import Image
 import tensorflow as tf
+from requests.models import Response
 
 #upload model
 model=load_model('mnist.h5')
@@ -21,6 +22,10 @@ UPLOAD_FOLDER = os.path.basename('uploads')
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+result=0
+
 
 @app.route('/')
 def student():
@@ -52,12 +57,18 @@ def hello_world():
     image_test = np.reshape(image_test,(1,28,28,1))
     with graph.as_default():
         result=model.predict(image_test)
-    
     result=np.argmax(result,axis=1)
     result=str(int(result))
+    f = open("./templates/result.html","w")
+    f.write(result)
     print(result)
-    
+    # data = {'name': 'nabin khadka'}
+    # return jsonify(data)
     return result
+
+@app.route('/return')
+def setres():
+    return render_template('result.html')
 
 if __name__ == '__main__':
 #    print("predicting") 
