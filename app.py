@@ -14,7 +14,6 @@ from PIL import Image
 import tensorflow as tf
 from requests.models import Response
 
-#upload model
 model=load_model('mnist.h5')
 graph=tf.get_default_graph()
 
